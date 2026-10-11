@@ -59,115 +59,25 @@ export function HeroArt(){
   return <div className="hero-art" aria-hidden="true">
     <svg viewBox="0 0 380 290" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="goldMetallic" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#faecd0"/>
-          <stop offset="35%" stopColor="#dcb76e"/>
-          <stop offset="70%" stopColor="#a37c35"/>
-          <stop offset="100%" stopColor="#dfc382"/>
+        <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+          <stop stopColor="#e9d3a3"/>
+          <stop offset="1" stopColor="#a68a50"/>
         </linearGradient>
-        <linearGradient id="indigoPlate" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#1e385b"/>
-          <stop offset="100%" stopColor="#102036"/>
-        </linearGradient>
-        <linearGradient id="sageAccent" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#76b19d"/>
-          <stop offset="100%" stopColor="#3d6c5e"/>
-        </linearGradient>
-        <radialGradient id="auraGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#e5cca0" stopOpacity="0.22"/>
-          <stop offset="60%" stopColor="#254366" stopOpacity="0.08"/>
-          <stop offset="100%" stopColor="#142b48" stopOpacity="0"/>
-        </radialGradient>
-        <filter id="foilShine" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="4" stdDeviation="5" floodColor="#050e1a" floodOpacity="0.45"/>
-        </filter>
       </defs>
-
-      {/* Ambient Back Glow */}
-      <circle cx="190" cy="142" r="130" fill="url(#auraGlow)"/>
-
-      {/* Concentric Celestial & Academic Orbits */}
-      <circle cx="190" cy="142" r="118" stroke="#c8b37b" strokeWidth="1" strokeOpacity="0.28" strokeDasharray="3 7"/>
-      <circle cx="190" cy="142" r="96" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.12"/>
-      <circle cx="190" cy="142" r="74" stroke="url(#goldMetallic)" strokeWidth="1" strokeOpacity="0.35"/>
-
-      {/* Diagonal Knowledge Alignment Axis */}
-      <path d="M65 230L315 54" stroke="url(#goldMetallic)" strokeWidth="1" strokeOpacity="0.22"/>
-      <path d="M85 55L295 229" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.09"/>
-
-      {/* Laurel Wreath Sprigs (left & right) */}
-      <g stroke="url(#goldMetallic)" strokeWidth="1.2" strokeLinecap="round" opacity="0.8" fill="none">
-        <path d="M125 155 C120 120, 132 88, 155 70"/>
-        <path d="M124 142 Q115 138 120 132 Q125 137 124 142" fill="url(#goldMetallic)" fillOpacity="0.6"/>
-        <path d="M127 122 Q119 116 126 112 Q130 118 127 122" fill="url(#goldMetallic)" fillOpacity="0.6"/>
-        <path d="M135 102 Q129 95 137 92 Q140 98 135 102" fill="url(#goldMetallic)" fillOpacity="0.6"/>
-        <path d="M148 83 Q143 76 151 75 Q153 82 148 83" fill="url(#goldMetallic)" fillOpacity="0.6"/>
-
-        <path d="M255 155 C260 120, 248 88, 225 70"/>
-        <path d="M256 142 Q265 138 260 132 Q255 137 256 142" fill="url(#goldMetallic)" fillOpacity="0.6"/>
-        <path d="M253 122 Q261 116 254 112 Q250 118 253 122" fill="url(#goldMetallic)" fillOpacity="0.6"/>
-        <path d="M245 102 Q251 95 243 92 Q240 98 245 102" fill="url(#goldMetallic)" fillOpacity="0.6"/>
-        <path d="M232 83 Q237 76 229 75 Q227 82 232 83" fill="url(#goldMetallic)" fillOpacity="0.6"/>
-      </g>
-
-      {/* Central Academic Medallion (Base Plate) */}
-      <g filter="url(#foilShine)">
-        <circle cx="190" cy="138" r="50" fill="url(#indigoPlate)" stroke="url(#goldMetallic)" strokeWidth="2"/>
-        <circle cx="190" cy="138" r="45" fill="none" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.14"/>
-        <circle cx="190" cy="138" r="42" fill="none" stroke="#c8b37b" strokeWidth="0.8" strokeOpacity="0.3" strokeDasharray="2 4"/>
-
-        {/* Academic Medical Greek Cross */}
-        <path d="M183 114 h14 v14 h14 v14 h-14 v14 h-14 v-14 h-14 v-14 h14 z" fill="#1b3454" stroke="url(#goldMetallic)" strokeWidth="1.2" strokeOpacity="0.7"/>
-        <path d="M184 115 h12 v15 h15 v12 h-15 v15 h-12 v-15 h-15 v-12 h15 z" fill="none" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.12"/>
-
-        {/* Rod of Asclepius (Center Staff and Serpent) */}
-        <line x1="190" y1="102" x2="190" y2="168" stroke="url(#goldMetallic)" strokeWidth="2.8" strokeLinecap="round"/>
-        <circle cx="190" cy="100" r="4" fill="url(#goldMetallic)"/>
-        <circle cx="190" cy="100" r="1.5" fill="#fff" opacity="0.75"/>
-        <path d="M187 167 h6 l-3 4 z" fill="url(#goldMetallic)"/>
-
-        {/* Coiled Serpent */}
-        <path d="M184 163 C196 159, 198 150, 190 144 C180 138, 184 128, 195 122 C200 118, 197 111, 191 108" fill="none" stroke="url(#goldMetallic)" strokeWidth="2.3" strokeLinecap="round"/>
-        <circle cx="191" cy="108" r="2.2" fill="url(#goldMetallic)"/>
-        <circle cx="191.5" cy="107.5" r="0.6" fill="#14263f"/>
-      </g>
-
-      {/* Open Medical Codex / Tome */}
-      <g filter="url(#foilShine)" transform="translate(0, 4)">
-        <path d="M190 192 C176 186, 154 188, 140 193 C140 209, 168 206, 190 212 C212 206, 240 209, 240 193 C226 188, 204 186, 190 192 Z" fill="#192e4a" stroke="url(#goldMetallic)" strokeWidth="1.6"/>
-        <path d="M145 194 C160 190, 178 190, 188 194 M192 194 C202 190, 220 190, 235 194" stroke="#f2e2be" strokeWidth="1" strokeOpacity="0.75"/>
-        <path d="M147 198 C161 194, 178 194, 187 197 M193 197 C202 194, 219 194, 233 198" stroke="#d5bb7c" strokeWidth="0.8" strokeOpacity="0.5"/>
-        <path d="M190 194 v22 l-3.5 -3 l-3.5 3 v-22" fill="url(#goldMetallic)" stroke="#8f6f2e" strokeWidth="0.5"/>
-      </g>
-
-      {/* Clinical Carte node */}
-      <g transform="translate(68, 160)" filter="url(#foilShine)">
-        <rect width="32" height="40" rx="4" fill="#15273f" stroke="url(#goldMetallic)" strokeWidth="1" strokeOpacity="0.6"/>
-        <line x1="7" y1="10" x2="25" y2="10" stroke="#c8b37b" strokeWidth="1.4" strokeOpacity="0.8"/>
-        <line x1="7" y1="16" x2="25" y2="16" stroke="#ffffff" strokeWidth="0.9" strokeOpacity="0.3"/>
-        <line x1="7" y1="21" x2="21" y2="21" stroke="#ffffff" strokeWidth="0.9" strokeOpacity="0.3"/>
-        <line x1="7" y1="26" x2="18" y2="26" stroke="#ffffff" strokeWidth="0.9" strokeOpacity="0.3"/>
-        <path d="M18 31 l2 2 l5 -5" fill="none" stroke="url(#sageAccent)" strokeWidth="1.4" strokeLinecap="round"/>
-      </g>
-
-      {/* Constellation Diamond Stars */}
-      <path d="M96 78 L99 84 L105 87 L99 90 L96 96 L93 90 L87 87 L93 84 Z" fill="url(#goldMetallic)" opacity="0.85"/>
-      <circle cx="96" cy="87" r="1.5" fill="#fff"/>
-      <path d="M285 72 L287 76 L291 78 L287 80 L285 84 L283 80 L279 78 L283 76 Z" fill="url(#goldMetallic)" opacity="0.85"/>
-
-      {/* Medicinal Herb / Sage Emblem */}
-      <g transform="translate(280, 205)" opacity="0.95">
-        <circle cx="12" cy="12" r="14" fill="#13273e" stroke="url(#sageAccent)" strokeWidth="1" strokeOpacity="0.6"/>
-        <path d="M7 16 C8 10, 15 8, 18 7 C18 13, 15 17, 7 16 Z" fill="url(#sageAccent)" opacity="0.85"/>
-        <path d="M7 16 L15 10" stroke="#f0f7f4" strokeWidth="0.8" opacity="0.6"/>
-      </g>
-
-      {/* Precision Node */}
-      <circle cx="190" cy="36" r="3.5" fill="url(#goldMetallic)"/>
-      <line x1="190" y1="28" x2="190" y2="44" stroke="url(#goldMetallic)" strokeWidth="1" strokeOpacity="0.4"/>
+      <circle cx="206" cy="142" r="108" fill="none" stroke="#c8b37b" strokeOpacity=".3"/>
+      <circle cx="206" cy="142" r="79" fill="none" stroke="#fff" strokeOpacity=".1"/>
+      <path d="M74 226L281 49" stroke="#c8b37b" strokeOpacity=".3"/>
+      <path d="M98 53L327 235" stroke="#fff" strokeOpacity=".1"/>
+      {Array.from({length:12},(_,i)=><rect key={i} x="184" y="45" width="42" height="42" rx="2" fill={i%3===0?'url(#gold)':i%3===1?'#536b89':'#2b4664'} transform={`rotate(${i*30} 206 142)`} opacity={i%3===0?.95:.65}/>)}
+      <circle cx="206" cy="142" r="44" fill="#172b49"/>
+      <path d="M206 119v46M183 142h46" stroke="#d9c08c" strokeWidth="2"/>
+      <circle cx="83" cy="81" r="7" fill="#c8b37b"/>
+      <path d="M296 219l13-23 13 23z" fill="#d3b780"/>
+      <rect x="63" y="175" width="12" height="12" fill="#6a899d" transform="rotate(20 69 181)"/>
     </svg>
-    <span className="art-caption">医学の知を、一問ずつ。</span>
-  </div>}
+    <span className="art-caption">知識がつながる。自信に変わる。</span>
+  </div>;
+}
 export function Analytics({compact=false}:{compact?:boolean}){const histories=useStudy(s=>s.histories);const attempts=Object.values(histories).flatMap(h=>h.attempts);const oldest=attempts.length?Math.min(...attempts.map(a=>new Date(a.answered_at).getTime())):Date.now();const allDays=Math.max(90,Math.ceil((Date.now()-oldest)/86400000)+1);const [tab,setTab]=useState('scatter');const [wide,setWide]=useState(()=>window.innerWidth>=768);useEffect(()=>{const media=window.matchMedia('(min-width:768px)');const update=()=>setWide(media.matches);update();media.addEventListener('change',update);return()=>media.removeEventListener('change',update)},[]);const [scope,setScope]=useState<Scope>('all');const [period,setPeriod]=useState('7');const [data,setData]=useState<{points:UserPoint[];daily:DailyPoint[]}>({points:[],daily:[]});useEffect(()=>{let mounted=true;dataAdapter.getScatter(scope,period==='all'?String(allDays):period).then(d=>{if(mounted)setData(d)});return()=>{mounted=false}},[scope,period,allDays]);const included=attempts.filter(a=>period==='all'||Date.now()-new Date(a.answered_at).getTime()<Number(period)*86400000);const self={id:'あなた',amount:included.length,rate:included.length?Math.round(included.filter(a=>a.result==='correct').length/included.length*100):0};const avgAmount=data.points.reduce((s,p)=>s+p.amount,0)/Math.max(data.points.length,1),avgRate=data.points.reduce((s,p)=>s+p.rate,0)/Math.max(data.points.length,1);const daily=data.daily.map(d=>({...d,label:d.date.slice(5).replace('-','/'),self:attempts.filter(a=>localDate(new Date(a.answered_at))===d.date).length}));const dailyOthers=daily.flatMap(d=>d.users.map(u=>({label:d.label,amount:u.amount})));const scatterChart=<ScatterChart margin={{top:20,right:24,bottom:18,left:0}}><CartesianGrid stroke="var(--line)" strokeDasharray="3 5"/><XAxis type="number" dataKey="amount" name="演習量" unit="問" tick={{fontSize:12,fill:'var(--muted)'}} axisLine={false} tickLine={false} domain={[0,'auto']}/><YAxis type="number" dataKey="rate" name="正答率" unit="%" domain={[0,100]} tick={{fontSize:12,fill:'var(--muted)'}} axisLine={false} tickLine={false} width={45}/><Tooltip cursor={{strokeDasharray:'3 3'}} content={({active,payload})=>active&&payload?.length?<div className="chart-tooltip">{payload[0].payload.id==='あなた'?'あなた':'匿名の学習者'}<br/>{payload[0].payload.amount}問 · {payload[0].payload.rate}%</div>:null}/><ReferenceLine x={avgAmount} stroke="#baa16f" strokeDasharray="5 5"/><ReferenceLine y={avgRate} stroke="#baa16f" strokeDasharray="5 5"/><Scatter data={data.points} fill="#aeb8c2" fillOpacity={.65} isAnimationActive={false}/><Scatter data={[self]} fill="var(--navy)" isAnimationActive={false} shape={(props:any)=><g><circle cx={props.cx} cy={props.cy} r={9} fill="var(--navy)" stroke="#fff" strokeWidth={3}/>{!wide&&<text x={props.cx+12} y={props.cy-12} fontSize={11} fill="var(--text)" fontWeight={700}>あなた</text>}</g>}/></ScatterChart>;const dailyChart=<ComposedChart data={daily} margin={{top:16,right:25,bottom:18,left:0}}><CartesianGrid stroke="var(--line)" strokeDasharray="3 5"/><XAxis dataKey="label" allowDuplicatedCategory={false} tick={{fontSize:12,fill:'var(--muted)'}} axisLine={false} tickLine={false} interval="preserveStartEnd"/><YAxis unit="問" tick={{fontSize:12,fill:'var(--muted)'}} axisLine={false} tickLine={false} width={45}/><Tooltip content={({active,payload})=>active&&payload?.length?<div className="chart-tooltip">{payload[0].payload.label}<br/>{payload.filter(p=>p.dataKey!=='amount').map(p=><span key={String(p.dataKey)}>{p.name}: {p.value}問<br/></span>)}{payload.some(p=>p.dataKey==='amount')&&<span>匿名の学習者: {payload.find(p=>p.dataKey==='amount')?.value}問</span>}</div>:null}/><Scatter data={dailyOthers} dataKey="amount" name="匿名の学習者" fill="#aeb8c2" fillOpacity={.3} isAnimationActive={false}/><Line dataKey="average" name="全体平均" stroke="#baa16f" strokeDasharray="5 5" dot={false} isAnimationActive={false}/><Line dataKey="self" name="あなた" stroke="var(--navy)" strokeWidth={2.5} dot={{r:4}} isAnimationActive={false}/></ComposedChart>;return <section aria-label="学習インサイト" className={`card analytics ${compact?'compact':''}`}><div className="section-heading"><div><span className="eyebrow">学習インサイト</span><h2>あなたの学習を、見える化。</h2></div><span className="demo-badge">他ユーザーはデモデータ</span></div><div className="chart-controls"><div className="tab-group"><button className={tab==='scatter'?'active':''} onClick={()=>setTab('scatter')}>演習量と正答率</button><button className={tab==='daily'?'active':''} onClick={()=>setTab('daily')}>日々の演習量</button></div><div className="inline-controls"><select aria-label="グラフの集計範囲" value={scope} onChange={e=>setScope(e.target.value as Scope)}><option value="all">全体</option><option value="univ">自大学</option><option value="grade">自学年</option></select><select aria-label="グラフの期間" value={period} onChange={e=>setPeriod(e.target.value)}><option value="7">7日</option><option value="30">30日</option><option value="all">全期間</option></select></div></div><div className="chart-legend"><span><i className="dot self"/>あなた</span><span><i className="dot"/>匿名の学習者</span><span><i className="line-swatch"/>全体平均</span></div><div className="analytics-layout">
 {(wide||tab==='scatter')&&<div className="chart-panel" role="region" aria-label="演習量と正答率のグラフ"><h3>演習量と正答率</h3><div className="chart"><ResponsiveContainer width="100%" height="100%">{scatterChart}</ResponsiveContainer></div><p className="chart-caption">横軸：演習量 ／ 縦軸：正答率</p></div>}
 {(wide||tab==='daily')&&<div className="chart-panel" role="region" aria-label="日々の演習量のグラフ"><h3>日々の演習量</h3><div className="chart"><ResponsiveContainer width="100%" height="100%">{dailyChart}</ResponsiveContainer></div><p className="chart-caption">その日に解いた問題数を表示</p></div>}
