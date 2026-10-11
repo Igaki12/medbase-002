@@ -1,0 +1,59 @@
+/* Home polish: quiet glass, and a readable chart pair. */
+.home .hero {
+  background: radial-gradient(ellipse at 90% 5%, #6685a22b, transparent 55%), linear-gradient(120deg, #142b48f5, #203858ed);
+  border: 1px solid #8fa6be38;
+  box-shadow: inset 0 1px 0 #ffffff24, inset 0 -1px 0 #10213770, 0 16px 36px #142b4815;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  isolation: isolate;
+}
+.home .hero:before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: linear-gradient(145deg, #ffffff09, transparent 45%, #d4dfeb05);
+}
+.home .hero h2 {font-weight: 700; letter-spacing: .045em; line-height: 1.6;}
+.home .hero-copy>p {color: #d2dce6; font-weight: 500;}
+.home .hero-kicker {color: #d9e1e9;}
+.home .hero-sub {color: #b3c1d1;}
+.home .hero-button {font-weight: 700; box-shadow: inset 0 1px 0 #ffffff60, 0 5px 16px #0d1d3433;}
+.hero-copy>* {animation: medteria-slide-in .68s cubic-bezier(.22,1,.36,1) both;}
+.hero-copy .hero-kicker {animation-delay: .02s;}
+.hero-copy h2 {animation-delay: .14s;}
+.hero-copy>p {animation-delay: .28s;}
+.hero-copy .hero-button {animation-delay: .4s;}
+.hero-copy .hero-sub {animation-delay: .5s;}
+.hero-art {animation: medteria-art-in .95s cubic-bezier(.22,1,.36,1) .18s both;}
+.home .page-intro {animation: medteria-slide-in .6s cubic-bezier(.22,1,.36,1) both;}
+@keyframes medteria-slide-in {from{opacity:0;transform:translate3d(0,16px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes medteria-art-in {from{opacity:0;transform:translate3d(24px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.home .metric {background: transparent; border: 1px solid #acb7bd65; box-shadow: none;}
+.home .metric-value {font-weight: 600;}
+.home .metric-title,.home .metric p {color: #71808b;}
+.analytics-layout {display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 24px; margin-top: 16px;}
+.chart-panel {min-width: 0;}
+.chart-panel h3 {font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 7px;}
+.chart-panel .chart {height: 265px;}
+.chart-caption {font-size: 10px; color: var(--muted); margin: 4px 0 16px;}
+.analytics .chart-controls {justify-content: flex-end;}
+.analytics .tab-group {display: none;}
+.analytics .chart-legend {font-size: 10px; margin-top: 16px;}
+.analytics .chart-footer {font-size: 10px;}
+[data-theme="dark"] .home .metric {background: transparent; border-color: #8b9fb64d; box-shadow: none;}
+[data-theme="dark"] .home .metric-title,[data-theme="dark"] .home .metric p {color: #a0afbd;}
+@media(min-width:768px) and (max-width:950px) {
+  .analytics-layout {gap: 18px;}
+  .chart-panel .chart {height: 245px;}
+  .analytics {padding: 22px;}
+}
+@media(max-width:767px) {
+  .analytics .tab-group {display: flex;}
+  .analytics .chart-controls {justify-content: space-between;}
+  .analytics-layout {display: block; margin-top: 5px;}
+  .chart-panel h3 {display: none;}
+  .chart-panel .chart {height: 245px;}
+  .analytics .chart-legend {font-size: 8px; margin-top: 8px;}
+  .analytics .chart-footer {font-size: 8px;}
+  .chart-caption {font-size: 8px; margin-top: 0; margin-bottom: 12px;}
+  .home .hero-art {animation: medteria-mobile-art-in .95s cubic-bezier(.22,1,.36,1) .18s both;}
+  @keyframes medteria-mobile-art-in {from{opacity:0;transform:translate3d(20px,0,0)}to{opacity:.42;transform:translate3d(0,0,0)}}
+}

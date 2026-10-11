@@ -1,0 +1,35 @@
+import {create} from 'zustand';
+import {type History,type Issue,type Settings,type QuizConfig,type Attempt,type Judgement,SOURCE,keyOf,defaultConfig} from './domain';
+export type Session={groups:number[][];index:number;attemptIds:Record<number,string>;drafts:Record<number,{selected:string[];written:string}>;revealed:Record<number,boolean>;started_at:string;finished?:boolean};
+export type LearningData={version:1;source_file:typeof SOURCE;histories:Record<string,History>;notes:Record<string,string>;issues:Issue[];settings:Settings;config:QuizConfig;presets:{name:string;config:QuizConfig}[];session:Session|null};
+export const initial=():LearningData=>({version:1,source_file:SOURCE,histories:{},notes:{},issues:[],settings:{theme:'light',font:'M',animation:true},config:{...defaultConfig},presets:[],session:null});
+export interface StorageAdapter{load():LearningData;save(data:LearningData):void}
+const storageKey='medica.learning.v1';
+const judgements=['correct','partial','wrong','unanswered'];
+const obj=(x:unknown):x is Record<string,any>=>!!x&&typeof x==='object'&&!Array.isArray(x);
+export function validateImport(value:unknown):LearningData {if(!obj(value)||value.version!==1||value.source_file!==SOURCE||!obj(value.histories)||!obj(value.notes)||!Array.isArray(value.issues)||!obj(value.settings)||!obj(value.config)||!Array.isArray(value.presets))throw Error('Medteriaの学習データJSONではありません。');
+ for(const [key,h] of Object.entries(value.histories)){if(!/^q_and_a_sample:\d+$/.test(key)||!obj(h)||h.key!==key||!Array.isArray(h.attempts))throw Error('履歴の形式が正しくありません。');for(const a of h.attempts){if(!obj(a)||typeof a.attempt_id!=='string'||!Number.isFinite(Date.parse(a.answered_at))||!Array.isArray(a.selected)||a.selected.some((s:unknown)=>typeof s!=='string')||!judgements.includes(a.result)||typeof a.edited!=='boolean'||(a.auto_result!==undefined&&!judgements.includes(a.auto_result))||(a.written_answer!==undefined&&typeof a.written_answer!=='string'))throw Error('回答履歴の形式が正しくありません。')}if(h.bookmark!==undefined&&(!obj(h.bookmark)||typeof h.bookmark.on!=='boolean'||typeof h.bookmark.updated_at!=='string'||(h.bookmark.label!==undefined&&typeof h.bookmark.label!=='string')))throw Error('ブックマークの形式が正しくありません。');}
+ if(Object.entries(value.notes).some(([k,n])=>!/^q_and_a_sample:\d+$/.test(k)||typeof n!=='string'))throw Error('メモの形式が正しくありません。');
+ if(!['light','dark'].includes(value.settings.theme)||!['S','M','L'].includes(value.settings.font)||typeof value.settings.animation!=='boolean')throw Error('設定の形式が正しくありません。');
+ const checkConfig=(c:any)=>obj(c)&&['number','random','weak','rate','old'].includes(c.sort)&&['all',...judgements].includes(c.status)&&typeof c.bookmark==='boolean'&&['exam','tag','questionType','image','format','source'].every(k=>typeof c[k]==='string')&&Number.isInteger(c.count)&&c.count>=0;
+ if(!checkConfig(value.config)||value.presets.some((p:any)=>!obj(p)||typeof p.name!=='string'||!checkConfig(p.config)))throw Error('出題設定の形式が正しくありません。');
+ if(value.issues.some((i:any)=>!obj(i)||typeof i.id!=='string'||i.source_file!==SOURCE||!Number.isInteger(i.q_id)||typeof i.exam_name!=='string'||!Number.isFinite(Date.parse(i.created_at))||typeof i.area!=='string'||typeof i.text!=='string'))throw Error('報告の形式が正しくありません。');
+ if(value.session!==null){const s=value.session;if(!obj(s)||!Array.isArray(s.groups)||!s.groups.length||s.groups.some((g:any)=>!Array.isArray(g)||!g.length||g.some((n:any)=>!Number.isInteger(n)))||!Number.isInteger(s.index)||s.index<0||s.index>=s.groups.length||!obj(s.attemptIds)||Object.values(s.attemptIds).some(x=>typeof x!=='string')||!obj(s.drafts)||!obj(s.revealed)||Object.values(s.revealed).some(x=>typeof x!=='boolean')||!Number.isFinite(Date.parse(s.started_at))||Object.values(s.drafts).some((d:any)=>!obj(d)||!Array.isArray(d.selected)||d.selected.some((x:any)=>typeof x!=='string')||typeof d.written!=='string'))throw Error('演習セッションの形式が正しくありません。');}
+ return structuredClone(value) as LearningData;
+}
+export const storageAdapter:StorageAdapter={load(){try{const raw=localStorage.getItem(storageKey);return raw?validateImport(JSON.parse(raw)):initial()}catch{return initial()}},save(data){localStorage.setItem(storageKey,JSON.stringify(data))}};
+const snapshot=(s:LearningData):LearningData=>({version:s.version,source_file:s.source_file,histories:s.histories,notes:s.notes,issues:s.issues,settings:s.settings,config:s.config,presets:s.presets,session:s.session});
+export type Store=LearningData&{error:string|null;commit:(patch:Partial<LearningData>)=>void;start:(groups:number[][])=>void;draft:(id:number,selected:string[],written:string)=>void;submit:(id:number,a:Attempt)=>void;editAttempt:(id:number,attempt:string,result:Judgement)=>void;deleteAttempt:(id:number,attempt:string)=>void;retry:(ids:number[])=>void;bookmark:(id:number,on:boolean,label?:string)=>void;note:(id:number,text:string)=>void;restore:(data:LearningData)=>void};
+export const useStudy=create<Store>((set,get)=>({...storageAdapter.load(),error:null,
+ commit(patch){const data=snapshot({...get(),...patch});try{storageAdapter.save(data);set({...patch,error:null})}catch{set({...patch,error:'端末に保存できませんでした。学習データをエクスポートしてください。'})}},
+ start(groups){if(!groups.length||groups.some(g=>!g.length)){set({error:'出題条件に合う問題がありません。出題設定を見直してください。'});return;}get().commit({session:{groups,index:0,attemptIds:{},drafts:{},revealed:{},started_at:new Date().toISOString()}})},
+ draft(id,selected,written){const s=get().session;if(s)get().commit({session:{...s,drafts:{...s.drafts,[id]:{selected,written}}}})},
+ submit(id,a){const s=get().session;const key=keyOf(id);const h=get().histories[key]??{key,attempts:[]};get().commit({histories:{...get().histories,[key]:{...h,attempts:[...h.attempts,a]}},session:s?{...s,attemptIds:{...s.attemptIds,[id]:a.attempt_id},revealed:{...s.revealed,[id]:true}}:null})},
+ editAttempt(id,attempt,result){const key=keyOf(id);const h=get().histories[key];if(h)get().commit({histories:{...get().histories,[key]:{...h,attempts:h.attempts.map(a=>a.attempt_id===attempt?{...a,result,edited:true}:a)}}})},
+ deleteAttempt(id,attempt){const key=keyOf(id);const h=get().histories[key];if(!h)return;const s=get().session;get().commit({histories:{...get().histories,[key]:{...h,attempts:h.attempts.filter(a=>a.attempt_id!==attempt)}},session:s&&s.attemptIds[id]===attempt?{...s,attemptIds:{...s.attemptIds,[id]:''},revealed:{...s.revealed,[id]:false}}:s})},
+ retry(ids){const s=get().session;if(s)get().commit({session:{...s,finished:false,revealed:{...s.revealed,...Object.fromEntries(ids.map(id=>[id,false]))},drafts:{...s.drafts,...Object.fromEntries(ids.map(id=>[id,{selected:[],written:''}]))}}})},
+ bookmark(id,on,label){const key=keyOf(id);const h=get().histories[key]??{key,attempts:[]};get().commit({histories:{...get().histories,[key]:{...h,bookmark:{on,label,updated_at:new Date().toISOString()}}}})},
+ note(id,text){get().commit({notes:{...get().notes,[keyOf(id)]:text}})},
+ restore(data){get().commit(validateImport(data))}
+}));
+export function exportData(){return snapshot(useStudy.getState())}
