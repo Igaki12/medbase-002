@@ -389,6 +389,10 @@
 .analytics .chart-footer {font-size: 10px;}
 
 /* Dark Theme Overrides */
+[data-theme="dark"] .home .page-intro p,
+[data-theme="dark"] .home .set-cover p {
+  color: var(--muted);
+}
 [data-theme="dark"] .cover-mark {
   background: linear-gradient(145deg, #1e3553 0%, #101f33 100%);
   box-shadow: inset 0 0 0 1px #e0c89399, inset 0 0 0 3px #0e1b2c, inset 0 0 0 4px #b8985555, 0 8px 24px #00000045;
@@ -492,6 +496,7 @@
     animation: medteria-mobile-art-in .95s cubic-bezier(.22,1,.36,1) .18s both;
   }
   @keyframes medteria-mobile-art-in {from{opacity:0;transform:translate3d(20px,0,0)}to{opacity:.48;transform:translate3d(0,0,0)}}
+  .home .hero-art .art-caption {display: none;}
 
   .home .metric-grid {grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 22px;}
   .home .metric {padding: 16px 16px; border-radius: 12px;}
